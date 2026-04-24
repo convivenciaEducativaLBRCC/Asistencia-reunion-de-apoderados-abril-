@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Registro Asistencia Apoderados — Liceo Bicentenario Rural Cerro Castillo</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Montserrat:wght@700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --azul:#2a6496;
+  --azul-claro:#4a90c4;
+  --azul-oscuro:#1a3f5f;
+  --verde:#2e7d5e;
+  --rojo:#c0392b;
+  --gris:#f0f4f8;
+  --texto:#1a2533;
+}
+body{font-family:'Nunito',sans-serif;background:var(--gris);color:var(--texto);min-height:100vh}
+.app{max-width:480px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:#fff;box-shadow:0 0 30px rgba(0,0,0,0.08)}
+
+.header{background:var(--azul);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.logo-aysen-wrap{display:flex;flex-direction:column;background:#fff;border-radius:7px;padding:5px 10px;min-width:72px}
+.logo-aysen-sup{font-family:'Nunito',sans-serif;font-size:6.5px;font-weight:700;color:#555;letter-spacing:0.3px;text-transform:uppercase;line-height:1.2;margin-bottom:2px}
+.logo-aysen-nombre{font-family:'Montserrat',sans-serif;font-size:16px;font-weight:800;color:#222;letter-spacing:-0.5px;line-height:1}
+.logo-aysen-nombre .a-color{color:#3a7bd5}
+.logo-aysen-comunas{font-size:5px;color:#888;margin-top:1px;line-height:1.3}
+.logo-liceo-wrap{display:flex;flex-direction:column;align-items:center;gap:3px}
+.logo-circulo{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#2a6496,#4a90c4);border:3px solid rgba(255,255,255,0.5);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.logo-circulo svg{width:52px;height:52px}
+
+.titulo-banda{background:var(--azul-oscuro);padding:12px 18px;text-align:center}
+.titulo-banda h1{font-family:'Montserrat',sans-serif;font-size:14px;font-weight:800;color:#fff;letter-spacing:0.6px;text-transform:uppercase}
+.titulo-banda p{font-size:11.5px;color:rgba(255,255,255,0.72);margin-top:3px}
+
+.instrucciones{background:#e8f2fb;border-left:4px solid var(--azul-claro);margin:16px 16px 0;border-radius:0 8px 8px 0;padding:12px 14px}
+.instrucciones h3{font-size:12px;font-weight:700;color:var(--azul-oscuro);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+.instrucciones ol{padding-left:16px}
+.instrucciones ol li{font-size:12.5px;color:#2c3e50;line-height:1.7;margin-bottom:2px}
+.instrucciones ol li strong{color:var(--azul-oscuro)}
+
+.contenido{flex:1;padding:16px}
+.screen{display:none}
+.screen.activa{display:block}
+
+.label-field{font-size:11.5px;font-weight:700;color:var(--azul-oscuro);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;display:block}
+.card-form{background:#fff;border-radius:12px;border:1px solid #dde3ea;padding:16px;margin-bottom:14px}
+.campo-grupo{margin-bottom:14px}
+.campo-grupo:last-child{margin-bottom:0}
+
+.input-text{width:100%;padding:12px 14px;border:2px solid #dde3ea;border-radius:10px;font-family:'Nunito',sans-serif;font-size:14px;color:var(--texto);background:#fff;transition:border-color 0.2s}
+.input-text:focus{outline:none;border-color:var(--azul-claro)}
+.select-field{width:100%;padding:12px 14px;border:2px solid #dde3ea;border-radius:10px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:600;color:var(--texto);background:#fff;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%232a6496' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;cursor:pointer;transition:border-color 0.2s}
+.select-field:focus{outline:none;border-color:var(--azul)}
+
+.btn-primario{width:100%;margin-top:6px;padding:14px;background:var(--azul);color:#fff;font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;border:none;border-radius:10px;cursor:pointer;letter-spacing:0.5px;transition:background 0.2s,transform 0.1s}
+.btn-primario:hover{background:var(--azul-oscuro)}
+.btn-primario:active{transform:scale(0.98)}
+.btn-primario:disabled{background:#b0bec5;cursor:not-allowed}
+.btn-secundario{width:100%;margin-top:10px;padding:12px;background:transparent;color:var(--azul);font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;border:2px solid var(--azul);border-radius:10px;cursor:pointer;transition:all 0.2s}
+.btn-secundario:hover{background:#e8f2fb}
+
+.prog-wrap{margin-bottom:14px}
+.prog-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+.prog-titulo{font-size:11px;font-weight:700;color:var(--azul-oscuro);text-transform:uppercase;letter-spacing:0.4px}
+.prog-num{font-size:12px;font-weight:700;color:var(--azul)}
+.prog-bar-bg{width:100%;height:7px;background:#dde3ea;border-radius:4px;overflow:hidden}
+.prog-bar-fill{height:100%;background:linear-gradient(90deg,var(--azul-claro),var(--azul));border-radius:4px;transition:width 0.3s ease}
+
+.curso-badge{display:inline-flex;align-items:center;gap:6px;background:var(--azul);color:#fff;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;padding:5px 14px;border-radius:20px;margin-bottom:6px}
+.prof-label{font-size:11.5px;color:#777;margin-bottom:14px}
+
+.alumno-row{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid #eef1f4;gap:10px}
+.alumno-row:last-child{border-bottom:none}
+.alumno-idx{font-size:11px;font-weight:700;color:#aaa;min-width:18px;text-align:right}
+.alumno-nombre{flex:1;font-size:13px;font-weight:600;color:var(--texto);line-height:1.3}
+.toggle-group{display:flex;gap:5px;flex-shrink:0}
+.btn-tick{padding:7px 11px;border-radius:8px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;border:2px solid;transition:all 0.15s;white-space:nowrap}
+.btn-tick.presente{border-color:#2e7d5e;color:#2e7d5e;background:#fff}
+.btn-tick.presente.activo{background:#2e7d5e;color:#fff;box-shadow:0 2px 8px rgba(46,125,94,0.3)}
+.btn-tick.ausente{border-color:var(--rojo);color:var(--rojo);background:#fff}
+.btn-tick.ausente.activo{background:var(--rojo);color:#fff;box-shadow:0 2px 8px rgba(192,57,43,0.3)}
+
+/* PANTALLA ENVIANDO */
+.enviando-box{text-align:center;padding:50px 20px}
+.spinner{width:50px;height:50px;border:4px solid #dde3ea;border-top:4px solid var(--azul);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 20px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.enviando-box h2{font-family:'Montserrat',sans-serif;font-size:17px;color:var(--azul-oscuro);margin-bottom:8px}
+.enviando-box p{font-size:13px;color:#888}
+
+/* ÉXITO */
+.exito-box{text-align:center;padding:24px 4px}
+.exito-icono{width:72px;height:72px;background:#e8f5ee;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:34px}
+.exito-box h2{font-family:'Montserrat',sans-serif;font-size:19px;color:var(--verde);margin-bottom:8px}
+.exito-box p{font-size:13px;color:#666;line-height:1.6;max-width:320px;margin:0 auto}
+.correo-badge{display:inline-flex;align-items:center;gap:6px;background:#e8f2fb;border:1px solid #b5d4f4;border-radius:8px;padding:7px 14px;margin:12px auto 0;font-size:12px;font-weight:700;color:var(--azul-oscuro)}
+
+.resumen-box{background:#f0f8f4;border-radius:12px;padding:14px 16px;margin-top:18px;text-align:left;border:1px solid #c8e6d9}
+.resumen-box h3{font-size:11px;font-weight:700;color:var(--azul-oscuro);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px}
+.stat-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:5px 0;border-bottom:1px solid rgba(0,0,0,0.05)}
+.stat-row:last-child{border-bottom:none}
+.stat-etiq{color:#555}
+.stat-val{font-weight:700;color:var(--texto)}
+
+.stats-nums{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.stat-card{border-radius:10px;padding:12px;text-align:center}
+.stat-card.verde{background:#e8f5ee;border:1px solid #c8e6d9}
+.stat-card.rojo{background:#fdf0ee;border:1px solid #f5c6c0}
+.stat-card .numero{font-family:'Montserrat',sans-serif;font-size:28px;font-weight:800}
+.stat-card.verde .numero{color:var(--verde)}
+.stat-card.rojo .numero{color:var(--rojo)}
+.stat-card .etiq{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;margin-top:2px}
+.stat-card.verde .etiq{color:#1a5c44}
+.stat-card.rojo .etiq{color:#7b2d26}
+
+.tabla-detalle{width:100%;border-collapse:collapse;font-size:12px;margin-top:14px}
+.tabla-detalle th{background:var(--azul);color:#fff;padding:8px 10px;text-align:left;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.3px}
+.tabla-detalle th:first-child{border-radius:8px 0 0 0}
+.tabla-detalle th:last-child{border-radius:0 8px 0 0}
+.tabla-detalle td{padding:8px 10px;border-bottom:1px solid #eef1f4;font-size:12px}
+.tabla-detalle tr:last-child td{border-bottom:none}
+.tabla-detalle tr:nth-child(even) td{background:#f8f9fa}
+.chip{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px}
+.chip-p{background:#d4edda;color:#155724}
+.chip-a{background:#f8d7da;color:#721c24}
+
+.alerta{background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:12.5px;color:#856404;display:none}
+.alerta.visible{display:block}
+
+/* BANNER CONFIGURACIÓN */
+.banner-config{background:#fff8e1;border:1px solid #ffe082;border-radius:10px;padding:12px 14px;margin:16px 16px 0;font-size:12px;color:#5f4c00;line-height:1.7}
+.banner-config strong{color:#3e2f00;font-size:12.5px}
+.banner-config code{background:#ffefc2;padding:2px 6px;border-radius:4px;font-size:11.5px;font-family:monospace;word-break:break-all}
+
+.footer{background:var(--azul-oscuro);padding:10px 18px;text-align:center}
+.footer p{font-size:10px;color:rgba(255,255,255,0.55);line-height:1.5}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo-aysen-wrap">
+      <div class="logo-aysen-sup">Servicio Local de<br>Educación Pública</div>
+      <div class="logo-aysen-nombre"><span class="a-color">A</span>YSÉN</div>
+      <div class="logo-aysen-comunas">Río Ibáñez · Cochrane · Chile Chico</div>
+    </div>
+    <div class="logo-liceo-wrap">
+      <div class="logo-circulo">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="49" fill="#2a6496"/>
+          <circle cx="50" cy="50" r="43" fill="#5a9ec8"/>
+          <ellipse cx="50" cy="70" rx="32" ry="18" fill="#2e7d5e"/>
+          <polygon points="18,54 35,28 52,50 62,36 82,54" fill="#fff" opacity="0.92"/>
+          <polygon points="18,54 35,32 48,54" fill="#e8f0f7" opacity="0.6"/>
+          <ellipse cx="24" cy="28" rx="6" ry="2.5" fill="#1a2533" transform="rotate(-20,24,28)"/>
+          <ellipse cx="20" cy="27" rx="4" ry="1.5" fill="#1a2533" transform="rotate(-30,20,27)"/>
+          <rect x="33" y="46" width="11" height="8" fill="#c0392b"/>
+          <rect x="33" y="44" width="11" height="3" fill="#2980b9"/>
+          <line x1="38.5" y1="40" x2="38.5" y2="44" stroke="#333" stroke-width="1"/>
+          <rect x="37" y="38" width="3" height="2" fill="#333"/>
+          <path d="M42,68 Q44,58 48,56 Q52,54 54,58 Q55,65 53,70" stroke="#c97c3a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <line x1="46" y1="68" x2="45" y2="74" stroke="#c97c3a" stroke-width="2"/>
+          <line x1="51" y1="70" x2="50" y2="74" stroke="#c97c3a" stroke-width="2"/>
+          <rect x="57" y="62" width="8" height="9" fill="#f5f5f5" rx="1" transform="rotate(-10,61,66)"/>
+          <rect x="61" y="62" width="8" height="9" fill="#ececec" rx="1" transform="rotate(10,65,66)"/>
+          <line x1="58" y1="65" x2="64" y2="64" stroke="#aaa" stroke-width="0.8"/>
+          <line x1="58" y1="67" x2="64" y2="66" stroke="#aaa" stroke-width="0.8"/>
+          <path id="arcTop" d="M 15,50 A 35,35 0 0,1 85,50" fill="none"/>
+          <path id="arcBot" d="M 20,55 A 30,30 0 0,0 80,55" fill="none"/>
+          <text font-size="7" fill="#fff" font-weight="bold" font-family="Arial">
+            <textPath href="#arcTop" startOffset="5%">LICEO BICENTENARIO RURAL CERRO CASTILLO</textPath>
+          </text>
+          <text font-size="7.5" fill="#fff" font-weight="bold" font-family="Arial">
+            <textPath href="#arcBot" startOffset="15%">RÍO IBÁÑEZ</textPath>
+          </text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- TÍTULO -->
+  <div class="titulo-banda">
+    <h1>Registro de Asistencia — Apoderados</h1>
+    <p>Departamento de Convivencia Educativa</p>
+  </div>
+
+  <!-- BANNER CONFIGURACIÓN (solo visible si no está configurado) -->
+  <div class="banner-config" id="banner-config">
+    ⚙️ <strong>Configuración pendiente:</strong> Reemplaza en el código el texto <code>mkokyoaj</code> por tu ID de Formspree para activar el envío de correos a <strong>diego.ortiz@slepaysen.cl</strong>. Ve a <strong>formspree.io</strong> → copia tu ID → pégalo en el archivo.
+  </div>
+
+  <!-- INSTRUCCIONES -->
+  <div class="instrucciones">
+    <h3>📋 Instrucciones para el/la profesor/a</h3>
+    <ol>
+      <li>Ingrese su <strong>nombre completo</strong> en el campo correspondiente.</li>
+      <li>Seleccione el <strong>curso</strong> del que es jefe/a o encargado/a de la reunión.</li>
+      <li>Por cada estudiante de la lista, marque <strong>✓ Asistió</strong> si el apoderado o apoderada estuvo <strong>presente en la reunión</strong>, o <strong>✗ No asistió</strong> si el apoderado estuvo <strong>ausente</strong>.</li>
+      <li>Una vez marcados <strong>todos los estudiantes</strong>, presione <em>"Enviar registro"</em>.</li>
+      <li>El registro llegará automáticamente a la coordinación de convivencia.</li>
+    </ol>
+  </div>
+
+  <div class="contenido">
+
+    <!-- PANTALLA 1: SELECCIÓN -->
+    <div class="screen activa" id="screen-seleccion">
+      <div class="card-form">
+        <div class="campo-grupo">
+          <label class="label-field" for="input-profesor">Nombre del profesor/a</label>
+          <input class="input-text" type="text" id="input-profesor" placeholder="Ej: María González Soto" oninput="verificarCampos()"/>
+        </div>
+        <div class="campo-grupo">
+          <label class="label-field" for="select-curso">Curso a registrar</label>
+          <select class="select-field" id="select-curso" onchange="verificarCampos()">
+            <option value="">— Seleccione su curso —</option>
+            <option value="Pre-Kínder">Pre-Kínder</option>
+            <option value="Kínder">Kínder</option>
+            <option value="1° Básico">1° Básico</option>
+            <option value="2° Básico">2° Básico</option>
+            <option value="3° Básico">3° Básico</option>
+            <option value="4° Básico">4° Básico</option>
+            <option value="5° Básico">5° Básico</option>
+            <option value="6° Básico">6° Básico</option>
+            <option value="7° Básico">7° Básico</option>
+            <option value="8° Básico">8° Básico</option>
+            <option value="I° Medio">I° Medio</option>
+            <option value="II° Medio">II° Medio</option>
+            <option value="III° Medio">III° Medio</option>
+            <option value="IV° Medio">IV° Medio</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-primario" id="btn-continuar" disabled onclick="irALista()">Continuar al registro →</button>
+    </div>
+
+    <!-- PANTALLA 2: LISTA -->
+    <div class="screen" id="screen-lista">
+      <span class="curso-badge" id="badge-curso">📚 Curso</span>
+      <p class="prof-label" id="label-profesor-lista"></p>
+      <div class="prog-wrap">
+        <div class="prog-header">
+          <span class="prog-titulo">Progreso del registro</span>
+          <span class="prog-num" id="prog-num">0 / 0</span>
+        </div>
+        <div class="prog-bar-bg"><div class="prog-bar-fill" id="prog-bar" style="width:0%"></div></div>
+      </div>
+      <div id="alerta-incompleto" class="alerta">⚠️ Faltan estudiantes por marcar. Complete todos antes de enviar.</div>
+      <div class="card-form" style="padding:8px 14px" id="lista-alumnos"></div>
+      <button class="btn-primario" style="background:var(--verde);margin-top:18px" onclick="enviarRegistro()">✓ Enviar registro de asistencia</button>
+      <button class="btn-secundario" onclick="volver()">← Volver</button>
+    </div>
+
+    <!-- PANTALLA ENVIANDO -->
+    <div class="screen" id="screen-enviando">
+      <div class="enviando-box">
+        <div class="spinner"></div>
+        <h2>Enviando registro...</h2>
+        <p>Estamos enviando la información a la coordinación de convivencia. Por favor espere.</p>
+      </div>
+    </div>
+
+    <!-- PANTALLA ÉXITO -->
+    <div class="screen" id="screen-exito">
+      <div class="exito-box">
+        <div class="exito-icono">✓</div>
+        <h2>¡Registro enviado!</h2>
+        <p>La asistencia de apoderados fue registrada y enviada correctamente a la coordinación.</p>
+        <div class="correo-badge">📧 Enviado a: diego.ortiz@slepaysen.cl</div>
+        <div class="resumen-box">
+          <h3>Resumen del registro</h3>
+          <div class="stat-row"><span class="stat-etiq">Curso</span><span class="stat-val" id="res-curso"></span></div>
+          <div class="stat-row"><span class="stat-etiq">Profesor/a</span><span class="stat-val" id="res-profesor"></span></div>
+          <div class="stat-row"><span class="stat-etiq">Fecha y hora</span><span class="stat-val" id="res-fecha"></span></div>
+          <div class="stat-row"><span class="stat-etiq">Total estudiantes</span><span class="stat-val" id="res-total"></span></div>
+        </div>
+        <div class="stats-nums">
+          <div class="stat-card verde">
+            <div class="numero" id="res-presentes">0</div>
+            <div class="etiq">Apoderados presentes</div>
+          </div>
+          <div class="stat-card rojo">
+            <div class="numero" id="res-ausentes">0</div>
+            <div class="etiq">Apoderados ausentes</div>
+          </div>
+        </div>
+        <div style="margin-top:18px">
+          <div style="font-size:11px;font-weight:700;color:var(--azul-oscuro);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">Detalle por estudiante</div>
+          <table class="tabla-detalle" id="tabla-detalle">
+            <thead><tr><th>#</th><th>Estudiante</th><th>Apoderado</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <button class="btn-primario" style="margin-top:22px" onclick="nuevoRegistro()">+ Registrar otro curso</button>
+      </div>
+    </div>
+
+    <!-- PANTALLA ERROR -->
+    <div class="screen" id="screen-error">
+      <div class="exito-box">
+        <div class="exito-icono" style="background:#fdf0ee;font-size:30px">✗</div>
+        <h2 style="color:var(--rojo)">Error al enviar</h2>
+        <p>No se pudo enviar el registro. Revisa tu conexión a internet o verifica que el ID de Formspree esté correctamente configurado.</p>
+        <button class="btn-primario" style="margin-top:20px;background:var(--rojo)" onclick="reintentar()">↩ Reintentar envío</button>
+        <button class="btn-secundario" onclick="nuevoRegistro()">← Volver al inicio</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <p>Liceo Bicentenario Rural Cerro Castillo · Aníbal Pinto 271, Villa Cerro Castillo<br>
+    Departamento de Convivencia Educativa · Río Ibáñez, Aysén</p>
+  </div>
+</div>
+
+<script>
+// =====================================================
+// ⚙️  CONFIGURACIÓN — reemplaza el ID de Formspree
+// Entra a formspree.io, crea un formulario y pega aquí
+// el ID que te dan (solo la parte final de la URL)
+// Ejemplo: si tu URL es https://formspree.io/f/xyzabc12
+// entonces pon: const FORMSPREE_ID = 'xyzabc12';
+const FORMSPREE_ID = 'mkokyoaj';
+// =====================================================
+
+const CORREO_DESTINO = 'diego.ortiz@slepaysen.cl';
+
+if(FORMSPREE_ID !== 'mkokyoaj'){
+  document.getElementById('banner-config').style.display = 'none';
+}
+
+const nominas = {
+  "Pre-Kínder":["Bollmann Belisario Bianca Stella","Goycoolea Galleguillos Pleia Luz","Medina Gutiérrez Sofía Isabella","Medina Rios Lükai","Muñoz Barrientos Florencia Antonella","Nuñez Roldán Maximiliano Alí","Suazo Antrillao Nicolás Alejandro","Tenorio Antrillao Amaru Agustín","Torres Arriagada Liam Andres"],
+  "Kínder":["Abarzúa Loncón Antonella Cecilia","Asencio Peranchiguay Lautaro Alonso","Bañares Vásquez Ahimara Dénnis","Bravo Cardenas Sofía Anahis","Calderon Saldías Emilia Ignacia","Guzmán Saldivia Gael Juvenal","Mansilla Arriagada Antu","Toledo Hermosilla Amaia Belen","Trecan Calfin Abigail Angelina","Trecan Calfin Genesis Angelina","Zuleta Palacios Eloísa Amparo","Soto Castillo Santiago Maximiliano"],
+  "1° Básico":["Becerra Urrieta Tomás Alexis","Bollmann Belisario Chloe Stacy","Cid Aguilar Pascale Samara","Gallardo Sandoval Itia Sayen","Lagos Rebolledo Leonor Pascal","Provoste Oyarzún Leonor Danae","Provoste Umaña Nicolás Ariel","Sánchez Urrieta Julián Nicolás","Suazo Antrillao Cristóbal Eduardo","Vega Maureria Ignacía Sofía"],
+  "2° Básico":["Alí Contreras Alonso Javier","Medina Sandoval Ámbar Montserrat","Sandoval Quiroz Ignacio Rafael","Navarrete Negrete Remiel Ainoha"],
+  "3° Básico":["Antrillao Berrocal Rocío Isabel","Cid Urrieta Laura Sofía","Fernández Calderón Francisco Iván","Fuentes Tapia León","Letelier Fuentes Inara Munay","Núñez Roldán Luciano Benjamín","Pacheco Farías Elsa Ester","Soto Rivera Ignacio Gaspar","Vidal Brys Antonio Diego","Navarrete Negrete Marcos Mateo"],
+  "4° Básico":["Barrientos Álvarez Lautaro","Maureria Maureria Gael Amaro","Rossi Mora Lissara Malen","Sandoval Almonacid Vicente León"],
+  "5° Básico":["Delgado Sánchez Ian Eliel","Estay Román Manuel Alfonso","Gamín Urrieta Simón Alonso","Iturra Jara Carla Ignacia","Rivera Haro Amaya Unelen","Sánchez Urrieta Martina Adeline","Sandoval Haro Dante Emiliano","Tenorio Antrillao Elías Ignacio"],
+  "6° Básico":["Becerra Urrieta Nicolás Benjamín","Candia Torres Rubén Pablo","Henríquez Oyarzún Matías Alexis","Hernández Maureria Tomás Nahuel","Hernández Urquejo Sebastián Alonso","Vargas Andrade Amanda Belen","Guzman Salazar Ainoha Idara"],
+  "7° Básico":["Calderon Cabezas Maximo Leonel","Calderón Cárcamo Martina Ignacia","Cattani Garrido Rafael Luciano","Fuentes Tapia Laura Catalina","García Vargas Ignacia Alejandra","Pacheco Farías Cristóbal Job","Soto Belmar Maximiliano Vicente","Tenorio Antrillao Damián Alessandro","Gomez Alvarez Fernando Javier","Navarrete Negrete Araziel","Navarrete Negrete Leon"],
+  "8° Básico":["Cattani Garrido Chiara Alba","Cid Aguilar Jorge Manuel","Figueroa Andrade Nissi Daniela Besalén","Hueitra Villagrán Millaray Rayén","Klenner Sandoval Montserrat Antonella","Ortiz Diaz Morgana Lilith","Sandoval Haro Maytte Analia Valentina","Sobarzo Cea Juliana Magdalena","Vidal Brys Benjamin Andrés"],
+  "I° Medio":["Carrillo Llanquin Camilo Andres","Cea Millar León Andrés","Erices Haro Amauri Rodrigo","García Vargas Valentina Ayelen","Hueitra Rivas Angel Sebastián Edgardo","Mendoza Perez Alejandro Manuel","Miranda Oyarzún Francisca Ignacia","Provoste Umaña Nayareth Paola","Quilodrán Bórquez Esteban Andrés","Sandoval Vásquez Isidora Ignacia","Santana Quilogran Edgar Yahir","Villagrán Cadagán Juan Ignacio","Gomez Sepulveda Martín Pescador"],
+  "II° Medio":["Aguilar Yáñez Jorge Martín Jaime","Candia Galindo Paloma Ignacia","Contreras Pérez Aarón Sebastián","Huaman Inuma Lucas","Hueitra Garridos Fernando Alonso","Martínez Vargas Patricio Marco Antonio","Maureria Elass Javiera Ignacia","Méndez Sepúlveda Elías Natanael","Molina Muñoz Juan Ignacio","Paredes Vásquez Heidi Aline","Poppitz Wagner Daniela Katharina","Pruessing Díaz Antonia Deniss","Sánchez Sánchez Azariel Jafet","Téllez Maureria Emilia Antonela Anaís","Vegas Berrocal Matías Damián"],
+  "III° Medio":["Altamirano Vera José Damián","Borquez Soto Isaías Andres","Cárcamo Reyes María Emma","Carvajal Ramona","Carvajal Severino","Díaz Caidane Renato Alfonso","Gómez Álvarez Ignacio Agustín","Guaiquin Maureria Danilo Enrique","Leiva Jara Franco Martín","Mera Fuenzalida Leonardo Benjamín","Muñoz Muñoz Ignacio","Oyarzo Martinez Florencia Fernanda Monserrat","Rodríguez Figueroa Paula Denisse","Santana Tenorio Jean Pierre Alexis Heraclio","Torres Osses Martín Eduardo Alexis","Union Umaña Vicente Nicolás","Vargas Delgado Alexis Nicolás","Velásquez Antrillao Kevin Alexis","Santana Quilodran Aracely Belen"],
+  "IV° Medio":["Andrade Vega Monserrat Anabel","Asencio Peranchiguay Evan Amaro","Ávila Díaz Martín Ignacio","Barría Díaz Pamela Karina","Coronado Palacios Matilda Violette","Delgado Vargas Fernando Mauricio","Esparza Carrillo Violeta Amapola","Gutiérrez Pastene Daniel Nehemías","Haro Rain María José","Jara Jara Martín Esteban","Muñoz Villagrán Nallely Meliza","Peña Maureria Benjamín Patricio","Ruiz Vargas Maira Fernanda","Sepulveda Negrete Martina Antonia"]
+};
+
+let estadoActual = {};
+let cursoActual = '';
+let profesorActual = '';
+let datosParaReenviar = null;
+
+function verificarCampos(){
+  const prof = document.getElementById('input-profesor').value.trim();
+  const curso = document.getElementById('select-curso').value;
+  document.getElementById('btn-continuar').disabled = !(prof && curso);
+}
+
+function irALista(){
+  cursoActual = document.getElementById('select-curso').value;
+  profesorActual = document.getElementById('input-profesor').value.trim();
+  estadoActual = {};
+  document.getElementById('badge-curso').textContent = '📚 ' + cursoActual;
+  document.getElementById('label-profesor-lista').textContent = 'Profesor/a: ' + profesorActual;
+  document.getElementById('alerta-incompleto').classList.remove('visible');
+  const lista = document.getElementById('lista-alumnos');
+  lista.innerHTML = '';
+  const alumnos = nominas[cursoActual] || [];
+  alumnos.forEach((nombre, i) => {
+    const row = document.createElement('div');
+    row.className = 'alumno-row';
+    const nombreSafe = nombre.replace(/'/g,"\\'");
+    row.innerHTML = `
+      <span class="alumno-idx">${i+1}</span>
+      <div class="alumno-nombre">${nombre}</div>
+      <div class="toggle-group">
+        <button class="btn-tick presente" id="p-${i}" onclick="marcar(${i},'presente','${nombreSafe}')">✓ Asistió</button>
+        <button class="btn-tick ausente" id="a-${i}" onclick="marcar(${i},'ausente','${nombreSafe}')">✗ No asistió</button>
+      </div>`;
+    lista.appendChild(row);
+  });
+  actualizarProgreso();
+  cambiarPantalla('screen-lista');
+}
+
+function marcar(i, estado, nombre){
+  estadoActual[nombre] = estado;
+  document.getElementById('p-'+i).classList.toggle('activo', estado==='presente');
+  document.getElementById('a-'+i).classList.toggle('activo', estado==='ausente');
+  document.getElementById('alerta-incompleto').classList.remove('visible');
+  actualizarProgreso();
+}
+
+function actualizarProgreso(){
+  const total = (nominas[cursoActual]||[]).length;
+  const marcados = Object.keys(estadoActual).length;
+  const pct = total ? Math.round(marcados/total*100) : 0;
+  document.getElementById('prog-bar').style.width = pct+'%';
+  document.getElementById('prog-num').textContent = marcados + ' / ' + total;
+}
+
+function enviarRegistro(){
+  const alumnos = nominas[cursoActual]||[];
+  const sinMarcar = alumnos.filter(n=>!estadoActual[n]);
+  if(sinMarcar.length > 0){
+    document.getElementById('alerta-incompleto').classList.add('visible');
+    document.getElementById('alerta-incompleto').scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+
+  const ahora = new Date();
+  const fecha = ahora.toLocaleDateString('es-CL',{day:'2-digit',month:'2-digit',year:'numeric'}) + ' ' + ahora.toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'});
+  const presentes = Object.values(estadoActual).filter(v=>v==='presente').length;
+  const ausentes  = Object.values(estadoActual).filter(v=>v==='ausente').length;
+
+  // Armar tabla de detalle para el correo
+  let tablaCorreo = 'N° | Estudiante | Asistencia Apoderado\n';
+  tablaCorreo    += '---|-----------|--------------------\n';
+  alumnos.forEach((nombre, i) => {
+    tablaCorreo += `${i+1} | ${nombre} | ${estadoActual[nombre]==='presente' ? 'PRESENTE' : 'AUSENTE'}\n`;
+  });
+
+  const datos = {
+    _subject: `[Asistencia Apoderados] ${cursoActual} — ${fecha}`,
+    Curso: cursoActual,
+    'Profesor/a': profesorActual,
+    'Fecha y hora': fecha,
+    'Total estudiantes': alumnos.length,
+    'Apoderados presentes': presentes,
+    'Apoderados ausentes': ausentes,
+    'Porcentaje asistencia': Math.round(presentes/alumnos.length*100) + '%',
+    'Detalle por estudiante': tablaCorreo,
+    _replyto: CORREO_DESTINO
+  };
+
+  datosParaReenviar = datos;
+
+  // Mostrar pantalla enviando
+  cambiarPantalla('screen-enviando');
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  // Enviar a Formspree
+  fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+    method: 'POST',
+    headers: {'Content-Type':'application/json','Accept':'application/json'},
+    body: JSON.stringify(datos)
+  })
+  .then(r => r.json())
+  .then(data => {
+    if(data.ok || data.next){
+      mostrarExito(cursoActual, profesorActual, fecha, presentes, ausentes, alumnos);
+    } else {
+      cambiarPantalla('screen-error');
+    }
+  })
+  .catch(() => cambiarPantalla('screen-error'));
+}
+
+function mostrarExito(curso, profesor, fecha, presentes, ausentes, alumnos){
+  document.getElementById('res-curso').textContent     = curso;
+  document.getElementById('res-profesor').textContent  = profesor;
+  document.getElementById('res-fecha').textContent     = fecha;
+  document.getElementById('res-total').textContent     = alumnos.length + ' estudiantes';
+  document.getElementById('res-presentes').textContent = presentes;
+  document.getElementById('res-ausentes').textContent  = ausentes;
+
+  const tbody = document.querySelector('#tabla-detalle tbody');
+  tbody.innerHTML = '';
+  alumnos.forEach((nombre, i) => {
+    const est = estadoActual[nombre];
+    const tr  = document.createElement('tr');
+    tr.innerHTML = `<td style="color:#aaa;font-size:11px;font-weight:700">${i+1}</td><td>${nombre}</td><td><span class="chip ${est==='presente'?'chip-p':'chip-a'}">${est==='presente'?'Presente':'Ausente'}</span></td>`;
+    tbody.appendChild(tr);
+  });
+
+  cambiarPantalla('screen-exito');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function reintentar(){
+  if(!datosParaReenviar) return;
+  cambiarPantalla('screen-enviando');
+  const alumnos = nominas[cursoActual]||[];
+  fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body: JSON.stringify(datosParaReenviar)
+  })
+  .then(r=>r.json())
+  .then(data=>{
+    const ahora = new Date();
+    const fecha = ahora.toLocaleDateString('es-CL',{day:'2-digit',month:'2-digit',year:'numeric'}) + ' ' + ahora.toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'});
+    const presentes = Object.values(estadoActual).filter(v=>v==='presente').length;
+    const ausentes  = Object.values(estadoActual).filter(v=>v==='ausente').length;
+    if(data.ok || data.next) mostrarExito(cursoActual, profesorActual, fecha, presentes, ausentes, alumnos);
+    else cambiarPantalla('screen-error');
+  })
+  .catch(()=>cambiarPantalla('screen-error'));
+}
+
+function volver(){ cambiarPantalla('screen-lista'); }
+
+function nuevoRegistro(){
+  document.getElementById('input-profesor').value = '';
+  document.getElementById('select-curso').value   = '';
+  document.getElementById('btn-continuar').disabled = true;
+  estadoActual = {};
+  cambiarPantalla('screen-seleccion');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function cambiarPantalla(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('activa'));
+  document.getElementById(id).classList.add('activa');
+}
+</script>
+</body>
+</html>
